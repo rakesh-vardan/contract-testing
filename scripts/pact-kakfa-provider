@@ -1,0 +1,30 @@
+def directory = 'date-producer-kafka'
+
+pipeline {
+    agent any
+
+    tools {
+        maven "Jenkins_Maven"
+    }
+
+    stages {
+        stage('Code checkout') {
+            steps {
+                figlet 'Code Checkout'
+                git 'https://github.com/rakesh-vardan/contract-testing.git'
+            }
+        }
+        
+        stage('Run tests') {
+            steps{
+                figlet 'Run Provider Tests'                
+                
+                dir("$directory") {
+                bat "dir"
+                bat 'mvn clean -Dtest=DateProducerTest test "-Dpact.verifier.publishResults=true"'
+                }
+            }
+        }
+        
+    }
+}

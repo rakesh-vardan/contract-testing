@@ -1,0 +1,39 @@
+def directory = 'date-consumer-kafka'
+
+pipeline {
+    agent any
+
+    tools {
+        maven "Jenkins_Maven"
+    }
+
+    stages {
+        stage('Code checkout') {
+            steps {
+                figlet 'Code Checkout'
+                git 'https://github.com/rakesh-vardan/contract-testing.git'
+            }
+        }
+        
+        stage('Run tests') {
+            steps{
+                figlet 'Run Kafka Consumer Tests'
+                
+                dir("$directory") {
+                bat "dir"
+                bat "mvn clean -Dtest=DateConsumerTest test"
+                }
+            }
+        }
+        
+        stage('Publish to broker') {
+            steps{
+                figlet 'Publish pact file to broker'
+                
+                dir("$directory") {
+                    bat "mvn pact:publish"
+                }
+            }
+        }
+    }
+}
