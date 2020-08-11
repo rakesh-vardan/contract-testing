@@ -14,7 +14,7 @@ public class DateController {
     }
 
     @GetMapping("/provider/validDate")
-    public DateResponse getValidDate(@RequestParam(name = "date") String date) {
+    public DateResponse getValidDate(@RequestParam(name = "dates") String date) {
         return dateService.getValidDate(date);
     }
 }
