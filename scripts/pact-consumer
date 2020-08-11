@@ -1,0 +1,39 @@
+def directory = 'age-consumer'
+
+pipeline {
+    agent any
+
+    tools {
+        maven "Jenkins_Maven"
+    }
+
+    stages {
+        stage('Code checkout') {
+            steps {
+                figlet 'Code Checkout'
+                git 'https://github.com/rakesh-vardan/contract-testing.git'
+            }
+        }
+        
+        stage('Run tests') {
+            steps{
+                figlet 'Run Consumer Tests'                
+                
+                dir("$directory") {
+                bat "dir"
+                bat "mvn -Dtest=PactAgeConsumerTest clean test"
+                }
+            }
+        }
+        
+        stage('Publish to broker') {
+            steps{
+                figlet 'Publish pact file to broker'
+                
+                dir("$directory") {
+                    bat "mvn pact:publish"
+                }
+            }
+        }
+    }
+}
