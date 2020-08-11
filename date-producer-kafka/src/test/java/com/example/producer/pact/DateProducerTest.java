@@ -14,6 +14,7 @@ import lombok.SneakyThrows;
 import org.junit.runner.RunWith;
 
 import java.time.LocalDate;
+import java.util.Collections;
 
 @RunWith(PactRunner.class)
 @Provider("dateProviderKafka")
@@ -22,7 +23,7 @@ import java.time.LocalDate;
 public class DateProducerTest {
 
     @TestTarget
-    public final Target target = new AmqpTarget();
+    public final Target target = new AmqpTarget(Collections.singletonList("com.example.producer"));
 
     @SneakyThrows
     @PactVerifyProvider("valid date from kafka provider")
