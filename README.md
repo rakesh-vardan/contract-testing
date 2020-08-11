@@ -1,3 +1,9 @@
+# This is a fork repo for the below 2 repos - 
+
+https://github.com/SrinivasanTarget/ContractTestingBoilerplate
+
+https://github.com/saikrishna321/contract-testing-boilerplate
+
 # Contract Testing Boilerplate
 
 Contract Testing Boilerplate has two microservices developed using Spring Boot in a maven multi-module project.
